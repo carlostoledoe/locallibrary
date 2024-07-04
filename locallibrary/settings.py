@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'catalog.apps.CatalogConfig' # Aquí estás utilizando una clase AppConfig específica para tu aplicación. Al hacerlo, puedes definir atributos personalizados para tu app que no están disponibles cuando usas la configuración predeterminada
 ]
 
 MIDDLEWARE = [
