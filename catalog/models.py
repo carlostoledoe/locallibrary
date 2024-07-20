@@ -47,6 +47,13 @@ class Book(models.Model):
         # Devuelve el URL a una instancia particular de Book
         return reverse('book-detail', args=[str(self.id)])
 
+    def display_genre(self):
+        # Crea un string con los tres primeros valores del campo genre (si existen)
+        # y crea un short_description (descripción corta) que puede ser usada en el 
+        # sitio de administración por este método.
+        return ', '.join([ genre.name for genre in self.genre.all()[:2] ])
+        display_genre.short_description = 'Genre'
+
 '''
 El método get_absoulte_url() devuelve un URL que puede ser usado para acceder al 
 detalle de un registro particular (para que esto funcione, debemos definir un mapeo
@@ -83,6 +90,7 @@ class BookInstance(models.Model):
         max_length=1,
         blank=True,
         default='m',
+        choices=LOAN_STATUS,
         help_text = 'Disponibilidad del libro'
     )
 
@@ -116,6 +124,10 @@ class Author(models.Model):
 
     def __str__(self):
         return f'{self.last_name}, {self.first_name}'
+
+    class Meta:
+        # para que se muestre ordenado por apellido en el Administrador de Django
+        ordering = ['last_name']
 
 
 class Language(models.Model):
